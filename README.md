@@ -1,6 +1,6 @@
 PROYECTO CÓMPUTO PARALELO. IMPLEMENTACIÓN DE PSO PARALELO CON GRID SEARCH Y RANDOM SEARCH 
 
-INTEGRANTES:
-Ethan Abraham Sánchez Téllez
-Mariano Ugalde Díaz
-Samuel Alejandro Torrez Oropeza
+INTEGRANTES
+1.Ethan Abraham Sánchez Téllez
+2.Mariano Ugalde Díaz
+3.Samuel Alejandro Torrez Oropeza
