@@ -8,9 +8,15 @@ import os
 
 # --- Función objetivo de dos variables
 def funcion_objetivo_con_restriccion(x, r=1e5):
-    f = x[0]**2 + (x[1] - 1)**2
-    h = x[1] - x[0]**2
-    penalizacion = r * (h**2)
+    # Función objetivo
+    f = 1000 - x[0]**2 - 2*x[1]**2 - x[2]**2 - x[0]*x[1] - x[0]*x[2]
+
+    # Restricciones
+    h1 = x[0]**2 + x[1]**2 + x[2]**2 - 25
+    h2 = 8*x[0] + 14*x[1] + 7*x[2] - 56
+
+    # Penalización
+    penalizacion = r * (h1**2 + h2**2)
     return f + penalizacion
 
 # --- Algoritmo PSO
@@ -75,8 +81,8 @@ def busqueda_exhaustiva(lock, id_proceso, combinaciones, mejor_puntaje, mejores_
 
 # --- Programa principal
 if __name__ == "__main__":
-    dimensiones = 2
-    limites = [(-1, 1)] * dimensiones  # Cada variable en [-10, 10]
+    dimensiones = 3
+    limites = [(0,10)]* dimensiones 
 
     # Espacio de búsqueda (grid search)
     espacio_parametros = {
