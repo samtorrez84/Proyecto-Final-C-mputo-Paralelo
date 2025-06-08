@@ -141,4 +141,4 @@ if __name__ == "__main__":
             *mejores_parametros
         ])
 
-    print(f"\n📁 Resultado agregado a: {nombre_csv}")
+    print(f"\nResultado agregado a: {nombre_csv}")
