@@ -100,7 +100,19 @@ if __name__ == "__main__":
     combinaciones_aleatorias = random.sample(todas, min(num_muestras, len(todas)))
 
     num_procesos = 8
-    cargas = np.array_split(combinaciones_aleatorias, num_procesos)
+
+    combinaciones_con_peso = [(params, int(params[0]) ** 2) for params in combinaciones_aleatorias]
+    cargas = [[] for _ in range(num_procesos)]
+    pesos_cargas = [0 for _ in range(num_procesos)]
+    combinaciones_ordenadas = sorted(combinaciones_con_peso, key=lambda x: -x[1])
+    for combinacion, peso in combinaciones_ordenadas:
+        idx = pesos_cargas.index(min(pesos_cargas))
+        cargas[idx].append(combinacion)
+        pesos_cargas[idx] += peso
+
+    for i in range(num_procesos):
+        total_peso = sum(int(c[0]) for c in cargas[i])
+        print(f"Proceso {i}: {len(cargas[i])} combinaciones, peso total estimado: {total_peso}")
 
     # Variables compartidas entre procesos
     lock = Lock()

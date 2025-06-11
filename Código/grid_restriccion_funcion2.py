@@ -93,8 +93,21 @@ if __name__ == "__main__":
         espacio_parametros['c2']
     ))
 
-    num_procesos = 5
-    cargas = np.array_split(todas_combinaciones, num_procesos)
+    num_procesos = 6
+
+    # --- Distribución balanceada según el número de partículas ---
+    combinaciones_con_peso = [(params, int(params[0]) ** 2) for params in todas_combinaciones]
+    cargas = [[] for _ in range(num_procesos)]
+    pesos_cargas = [0 for _ in range(num_procesos)]
+    combinaciones_ordenadas = sorted(combinaciones_con_peso, key=lambda x: -x[1])
+    for combinacion, peso in combinaciones_ordenadas:
+        idx = pesos_cargas.index(min(pesos_cargas))
+        cargas[idx].append(combinacion)
+        pesos_cargas[idx] += peso
+
+    for i in range(num_procesos):
+        total_peso = sum(int(c[0]) for c in cargas[i])
+        print(f"Proceso {i}: {len(cargas[i])} combinaciones, peso total estimado: {total_peso}")
 
     lock = Lock()
     procesos = []
